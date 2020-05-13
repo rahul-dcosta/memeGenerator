@@ -5,8 +5,9 @@ class MemeGenerator extends React.Component {
         super()
         this.state = {
             topText: "",
-            bottomTtext: "",
-            randomImage: "http://i.imgflip.com/1bij.jpg"
+            bottomText: "",
+            randomImage: "http://i.imgflip.com/1bij.jpg",
+            allMemeImgs: []
         }
     }
 
@@ -15,13 +16,32 @@ class MemeGenerator extends React.Component {
             .then(response => response.json())
             .then(response => {
                 const {memes} = response.data
-                
+                console.log(memes[0])
+                this.setState({allMemeImgs: memes})
             })
     }
 
     render() {
         return (
-            <h1>MEME GENERATOR SECTION</h1>
+            <div>
+                <form className="meme-form">
+                    <input
+                        type = "text"
+                        name = "TopText"
+                        placeholder = "Top Text"
+                        value = {this.state.topText}
+                    />
+
+                    <input
+                        type = "text"
+                        name = "BottomText"
+                        placeholder = "Bottom Text"
+                        value = {this.state.bottomText}
+                    />
+
+                    <button>Gen</button>
+                </form>
+            </div>
         )
     }
 }
